@@ -1,0 +1,51 @@
+.layouts { 
+  min-height: 100vh;
+  font-size: 16px;
+  background-color: @backf7f;
+  position: relative;
+  padding-top: 48px;
+  padding-bottom: 49px;
+  box-sizing: border-box;
+  overflow: hidden;
+  // tabbar 位置
+  .van-tabbar--fixed {
+    bottom: -3px;
+  }
+  // cell 表格
+  .van-cell__value {
+    span {
+      width: 100%;
+    }
+  }
+  // 设置输入框  校验的设置
+  .van-field__body {
+    width: 100%;
+  }
+  .van-cell__value {
+    display: flex;
+  }
+  .van-field__error-message {
+    display: none;
+  }
+  // 输入键盘的标题设置
+  .van-number-keyboard__title {
+    background-color: @backebe; 
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 45px;
+    line-height: 45px;
+    font-size: 16px;
+  }
+  // 侧边导航
+  .van-sidebar {
+    max-height: 100%;
+  }
+  .van-index-bar {
+    width: 100%;
+    max-height: 100%;
+    .van-index-anchor {
+      background-color: @backf7f;
+    }
+  }
+}
+
