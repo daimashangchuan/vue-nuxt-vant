@@ -9,7 +9,10 @@
       }]"
     >
       <template #input>
-        <van-uploader v-model="fileLists" :max-count="3" :after-read="afterReadId"/>
+        <!-- multiple 是否开启图片多选 -->
+        <van-uploader v-model="fileLists" :max-count="3" multiple />
+        <!--  afterReadId 上传之前进行的操作 -->
+        <!-- <van-uploader v-model="fileLists" :max-count="3" :after-read="afterReadId" /> -->
       </template>
     </van-field>
   </div>

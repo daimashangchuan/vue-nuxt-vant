@@ -1,4 +1,5 @@
 import moment from "moment";
+import { Toast } from "vant";
 
 function formatNumber(value) {
   return String(value).padStart(2, '0');
@@ -263,6 +264,60 @@ export function compressImg(img, callback) {
     callback && callback(canvas.toDataURL("image/jpeg", 0.8));
   };
 }
+
+/**
+ * 校验文件格式和大小
+ * @param {*} file     图片的 file
+ * @param {*} types    图片的格式 ["jpg", "png"]
+ * @param {*} size     限制图片的大小   MB
+ * @param {*} width    限制图片的宽     px
+ * @param {*} height   限制图片的高     px
+ */
+export const checkFileTypeAndSize = async (file, types, size, width, height) => {
+  if(types.length>0) {
+    const testName = file.name.substring(file.name.lastIndexOf(".") + 1).toLowerCase();
+    const extension = types.includes(testName);
+    if (!extension) {
+      const allowTypes = types.join("、");
+      Toast.fail(`只能上传${allowTypes}格式文件`);
+      return false;
+    }
+  }
+  if(width || height) {
+    const result = await validHeightAndWidth(file, width, height);
+    let message = `上传图片尺寸不符合,只能是${width}*${height}像素!`;
+    if(!height) message = `上传图片尺寸不符合,只能是宽度${width}像素!`;
+    if(!result) {
+      Toast.fail(message);
+      return false;
+    }
+  }
+  const isLtSize = size ? file.size / 1024 / 1024 < size : true;
+  if (!isLtSize) {
+    Toast.fail(`上传文件大小不能超过${size}MB!`);
+    return false;
+  }
+  return true;
+}
+// 校验图片的宽高
+function validHeightAndWidth(file, width, height) {
+  return new Promise(resolve => {
+    let _URL = window.URL || window.webkitURL;
+    let image = new Image();
+    image.src = _URL.createObjectURL(file);
+    image.onload = function() {
+      let valid = true;
+      if(width && height) {
+        valid = image.width == width && image.height == height;
+      }
+      if(width && !height) {
+        valid = image.width == width;
+      }
+      resolve(valid);
+    };
+  })
+}
+
 
 /**
  * 千分位字符串还原
