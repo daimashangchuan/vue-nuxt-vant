@@ -94,7 +94,7 @@
             throw err;
           } else {
             // 通过 MediaRecorder 记录获取到的媒体流
-            console.log();
+            
             mediaRecorder = new MediaRecorder(stream);
             mediaStream = stream;
             var chunks = [],
@@ -145,24 +145,18 @@
             window.getUserMedia;
           var constraints = { video: videoEnable, audio: audioEnable };
           if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices
-              .getUserMedia(constraints)
-              .then(function(stream) {
-                callback(false, stream);
-              })
-              ["catch"](function(err) {
-                callback(err);
-              });
+            navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+              callback(false, stream);
+            }).catch(function(err) {
+              console.log("navigator.mediaDevices.getUserMedia==", err)
+              callback(err);
+            });
           } else if (navigator.getUserMedia) {
-            navigator.getUserMedia(
-              constraints,
-              function(stream) {
-                callback(false, stream);
-              },
-              function(err) {
-                callback(err);
-              }
-            );
+            navigator.getUserMedia(constraints, function(stream) {
+              callback(false, stream);
+            },function(err) {
+              callback(err);
+            });
           } else {
             callback(new Error("Not support userMedia"));
           }
