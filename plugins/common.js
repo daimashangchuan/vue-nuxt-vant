@@ -23,4 +23,18 @@ Vue.component(AppHeader.name, AppHeader);
 Vue.component(AppTabBar.name, AppTabBar);
 
 
+// 在项目中使用 vconsole
+console.log("===production || development===",process.env.NODE_ENV);
+import Vconsole from 'vconsole'
+if(process.env.NODE_ENV == "development") {
+	let vConsole = new Vconsole()
+	Vue.use(vConsole)
+}
 
+
+// 解决不能跳转自己的问题
+// import vueRouter from 'vue-router'
+// const originalPush = vueRouter.prototype.push
+// vueRouter.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// }

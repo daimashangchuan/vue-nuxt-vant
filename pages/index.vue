@@ -35,6 +35,7 @@ import { mapActions, mapGetters } from "vuex";
 import { AppService } from "@/api";
 import { list,  } from "@/utils/variable";
 export default {
+  inject: ['routerLoad'],
   data() {
     return {
       tabActive: 1,
@@ -85,6 +86,12 @@ export default {
       },
       onLeftClick: null,
       onRightClick: () => {
+        // let oldQuery = this.$route.query;
+        // let newQuery = { name: 'a' }
+        // let query = { ...oldQuery, ...newQuery };
+        // this.$router.push({ path: '/', query })
+        // //  调用刷新当前页面的方法
+        // this.routerLoad()
         this.$toast("首页");
       }
     });

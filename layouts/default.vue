@@ -8,10 +8,12 @@
       <app-header></app-header>
 
       <!-- 本地缓存 -->
-      <keep-alive>
-        <router-view v-if="keepAlive"></router-view>
-      </keep-alive>
-      <router-view v-if="!keepAlive"></router-view>
+      <div v-if="isRouterState">
+        <keep-alive>
+          <router-view v-if="keepAlive"></router-view>
+        </keep-alive>
+        <router-view v-if="!keepAlive"></router-view>
+      </div>
 
       <!-- 公共的 foot -->
       <app-tab-bar></app-tab-bar>
@@ -26,6 +28,16 @@ import AppTabBar from "../components/AppTabBar.vue";
 import AppLoading from "../components/AppLoading.vue";
 
 export default {
+  provide() {
+    return {
+      routerLoad: this.routerLoad
+    }
+  },
+  data() {
+    return {
+      isRouterState: true
+    }
+  },
   components: {
     AppHeader,
     AppTabBar,
@@ -38,6 +50,14 @@ export default {
       // 缓存首页及分类页
       // return /^\/(tabSecond|tabFourth)?$/.test(path);
       return /^\/?$/.test(path);
+    }
+  },
+  methods: {
+    routerLoad() {
+      this.isRouterState = false;
+      this.$nextTick(() => {
+        this.isRouterState = true;
+      })
     }
   }
 };
