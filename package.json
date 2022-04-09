@@ -17,7 +17,7 @@
     "html2canvas": "^1.0.0-rc.5",
     "js-cookie": "^2.2.1",
     "js-md5": "^0.7.3",
-    "moment": "^2.25.3",
+    "moment": "^2.29.2",
     "nuxt": "^2.11.0",
     "postcss-px2rem": "^0.3.0",
     "qs": "^6.9.3",
